@@ -1,2 +1,2 @@
-FROM nginxinc/nginx-unprivileged:alpine3.22-perl
+FROM nginxinc/nginx-unprivileged:latest
 COPY page /usr/share/nginx/html
