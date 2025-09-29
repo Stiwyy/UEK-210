@@ -1,0 +1,65 @@
+Was ist Container-Technologie oder Container-Virtualisierung?
+- Anwendungen und alle ihre Abhängigkeiten in isolierte Softwarepakete verpacken
+- Leichtgewichtige Virtualisierung auf Betriebssystem-Ebene
+- Nutzung des gleichen OS-Kernels, aber getrennte Laufzeitumgebungen
+- Schnellere Bereitstellung und Skalierbarkeit von Anwendungen
+
+Was sind die Vor- und Nachteile der Container-Technologie zu virtuellen Servern (VM)?
+
+Vor:
+    - Geringerer Ressourcenverbrauch
+    - Schnellere Startzeiten
+    - Höhere Portabilität (unabhängig von der Infrastruktur)
+    - Bessere Skalierbarkeit
+
+Nach:
+    - Schwächere Isolation (teilen sich den Kernel)
+    - Komplexere Netzwerkkonfiguration
+    - Geringerer Funktionsumfang bei vollständigen Betriebssystemfunktionen
+
+Welche Produkte kennen Sie im Zusammenhang mit virtuellen Servern und Container?
+- Docker
+- Kubernetes
+- Podman
+- VMware vSphere / ESXi
+- VirtualBox
+- AWS ECS / EKS / EC2
+- Azure Container Instances / Azure VMs
+- Google Kubernetes Engine (GKE) / Compute Engine
+
+Wie unterscheiden sich die Technologien VM und Container in Bezug auf:
+
+Bereitstellung:
+    - VM: Langsame Bereitstellung (Minuten), vollständiges OS starten
+    - Container: Schnelle Bereitstellung (Sekunden), leichtgewichtig
+Speicherplatz:
+    - VM: Größerer Speicherbedarf (komplettes OS + Anwendung)
+    - Container: Geringerer Speicherbedarf (nur Anwendung + Abhängigkeiten)
+Portabilität:
+    - VM: Eingeschränkter (abhängig vom Hypervisor und OS)
+    - Container: Hoch (läuft überall mit Container-Engine)
+Effizienz:
+    - VM: Geringere Effizienz durch Overhead des Hypervisors
+    - Container: Höhere Effizienz, direktere Nutzung der Systemressourcen
+Betriebssystem (Kernel):
+    - VM: Eigenes Kernel pro VM
+    - Container: Gemeinsamer Kernel des Hosts
+
+Können virtuelle Server immer durch Container ersetzt werden?
+- Nein
+
+Was ist Unterschied zwischen Self-Managed und Fully Managed?
+Self-Managed:
+    - Benutzer ist verantwortlich für Betrieb, Wartung und Updates
+    - Volle Kontrolle über die Infrastruktur
+    - Höherer Aufwand bei Konfiguration und Sicherheit
+    - Beispiele: Eigener Kubernetes-Cluster, selbst gehostete VMs
+Fully Managed:
+    - Anbieter übernimmt Betrieb, Wartung, Monitoring und Skalierung
+    - Reduzierter Administrationsaufwand
+    - Eingeschränkte Anpassungsmöglichkeiten
+    - Beispiele: AWS Fargate, Google App Engine, Azure App Services
+Diskussion:
+    - Entscheidung hängt ab von Ressourcen, Know-how und Flexibilität
+    - Self-Managed bietet mehr Kontrolle, ist aber aufwändiger
+    - Fully Managed ist schneller einsatzbereit, reduziert aber Einflussmöglichkeiten
