@@ -31,7 +31,7 @@ Welche Cloud Deployment Modelle kennen Sie?
 - Public Cloud
 - Private Cloud
 - Hybrid Cloud
-- Multi Cloud
+- Community Cloud
 
 Was sind Cloud Service Modelle?
 - IaaS (Infrastructure as a Service)
