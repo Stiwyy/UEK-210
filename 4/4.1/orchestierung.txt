@@ -1,0 +1,32 @@
+Warum braucht man Container-Orchestrierung?
+- Automatisierte Verwaltung vieler Container
+- Skalierung, Load Balancing, Self-Healing
+- Updates ohne Downtime
+- Effiziente Nutzung von Ressourcen
+
+Wie funktioniert Container-Orchestrierung?
+- Deklarative Konfiguration (z. B. YAML)
+- Scheduling auf Hosts
+- Service Discovery & Networking
+- Lastverteilung
+- Auto-Recovery (Neustart bei Fehlern)
+- Skalierung (horizontal)
+
+Welche Container-Orchestrierung Technologien kennen Sie?
+- Kubernetes
+- Docker Swarm
+- ECS / EKS
+
+Was versteht man unter horizontaler Skalierung im Kontext von Cloud-Anwendungen?
+- Mehrere Instanzen statt grösserer Server
+- Bessere Lastverteilung
+- Höhere Verfügbarkeit
+- Elastisch anpassbar
+
+Was gibt es für Deployment Strategien?
+- Rolling Update -> Schrittweises Ersetzen
+- Blue-Green -> Zwei Umgebungen, Umschaltung
+- Canary -> Test mit kleinem Nutzeranteil
+- Recreate -> Stop + Start, Downtime
+- A/B Testing -> Vergleich verschiedener Versionen
+- Shadow -> Neuer Code erhält Traffic-Kopie
