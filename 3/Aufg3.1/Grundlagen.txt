@@ -5,7 +5,6 @@ Was ist Container-Technologie oder Container-Virtualisierung?
 - Schnellere Bereitstellung und Skalierbarkeit von Anwendungen
 
 Was sind die Vor- und Nachteile der Container-Technologie zu virtuellen Servern (VM)?
-
 Vor:
     - Geringerer Ressourcenverbrauch
     - Schnellere Startzeiten
@@ -28,7 +27,6 @@ Welche Produkte kennen Sie im Zusammenhang mit virtuellen Servern und Container?
 - Google Kubernetes Engine (GKE) / Compute Engine
 
 Wie unterscheiden sich die Technologien VM und Container in Bezug auf:
-
 Bereitstellung:
     - VM: Langsame Bereitstellung (Minuten), vollständiges OS starten
     - Container: Schnelle Bereitstellung (Sekunden), leichtgewichtig
