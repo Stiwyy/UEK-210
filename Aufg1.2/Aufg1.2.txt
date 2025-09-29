@@ -1,0 +1,59 @@
+Wie ist der Begriff Cloud entstanden? Wieso heisst es Cloud?
+- Darstellung des Internets und komplexer Netzwerke als eine Wolke
+
+Wie wird der Begriff Cloud definiert, z.B. gemäss NIST?
+- Ein Modell, das den bedarfsgerechten, netzwerkbasierten Zugriff auf einen gemeinsamen Pool konfigurierbarer IT-Ressourcen ermöglicht, die schnell bereitgestellt und mit minimalem Verwaltungsaufwand genutzt werden können
+
+Welches sind die 5 Merkmale einer Cloud?
+- On-Demand Self-Service
+- breiter Netzwerkzugang
+- Ressourcen-Pooling
+- schnelle Elastizität
+- gemessener Service
+
+Welche Cloud Dienstleistungen kennen Sie?
+- Webhosting
+- Datenbankdienste
+- Speicherlösungen
+- Virtuelle Maschinen
+- Backup & Recovery
+- KI-/ML-Dienste
+- Container-Services
+
+Welche Cloud Anbieter kennen Sie?
+- AWS
+- Google
+- Azure
+- IBM Cloud
+- Oracle Cloud
+
+Welche Cloud Deployment Modelle kennen Sie?
+- Public Cloud
+- Private Cloud
+- Hybrid Cloud
+- Multi Cloud
+
+Was sind Cloud Service Modelle?
+- IaaS (Infrastructure as a Service)
+- SaaS (Software as a Service)
+- PaaS (Platform as a Service)
+
+Was ist der wesentliche Unterschied zwischen Monitoring und Logging in der Cloud?
+- Logging ist detailliert
+- Monitoring beobachtet die Leistung 
+
+Weshalb soll ich Dienste aus der Cloud beziehen? Was sind die Vorteile?
+- Günstiger
+- Weniger Arbeit
+- Ausfallsicherheit 
+- Skalierbarkeit
+- Ortsunabhängiger Zugriff
+
+Was sind die Nachteile?
+- Nicht volle Kontrolle
+- Abhängigkeit vom Anbieter
+- Datenschutz-/Sicherheitsbedenken
+- Internetverbindung notwendig
+
+Was beschreibt das Konzept der "Shared Responsibility" (geteilte Verantwortung) im Kontext der Nutzung von Public Cloud Diensten?
+- Verteilung der Verantwortung auf Cloud-Anbieter und Kunden
