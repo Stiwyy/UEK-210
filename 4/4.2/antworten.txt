@@ -1,0 +1,8 @@
+Was ist Redis?
+Der Cache Speicher.
+
+Welche Ports werden genutzt?
+8000 (Host) auf 5000 (container).
+
+Was ist die Bedeutung von ENV im DOCKERFILE?
+Mit ENV wird eine Umgebungsvariable festgelegt.
