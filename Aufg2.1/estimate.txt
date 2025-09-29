@@ -1,0 +1,18 @@
+VM:
+    AWS: 
+    Reservation: 3 years
+    vCPU: 1
+    RAM: 1GB
+    cost (month): 4.23 USD
+
+    Azure:
+    Reservation: 3 years
+    vCPU: 1
+    RAM: 1GB
+    cost (month): 2,86 $
+
+    Google Cloud:
+    vCPU: 1
+    RAM: 1GB
+    cost (month): 18,96 $
+
