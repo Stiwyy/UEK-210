@@ -35,8 +35,8 @@ Welche Cloud Deployment Modelle kennen Sie?
 
 Was sind Cloud Service Modelle?
 - IaaS (Infrastructure as a Service)
-- SaaS (Software as a Service)
 - PaaS (Platform as a Service)
+- SaaS (Software as a Service)
 
 Was ist der wesentliche Unterschied zwischen Monitoring und Logging in der Cloud?
 - Logging ist detailliert
