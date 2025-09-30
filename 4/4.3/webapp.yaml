@@ -22,14 +22,14 @@ spec:
         env:
         - name: USER_NAME
           valueFrom:
-              secretKeyRef:
-                name: mongo-secret
-                key: mongo-username
+            secretKeyRef:
+              name: mongo-secret
+              key: mongo-username
         - name: USER_PWD
           valueFrom:
-              secretKeyRef:
-                name: mongo-secret
-                key: mongo-password
+            secretKeyRef:
+              name: mongo-secret
+              key: mongo-password
         - name: DB_URL
           valueFrom:
             configMapKeyRef:
@@ -41,9 +41,11 @@ kind: Service
 metadata:
   name: webapp-service
 spec:
+  type: NodePort
   selector:
     app.kubernetes.io/name: webapp
   ports:
     - protocol: TCP
       port: 3000
       targetPort: 3000
+      nodePort: 30100
