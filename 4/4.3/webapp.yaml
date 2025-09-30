@@ -24,7 +24,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: mongo-secret
-              key: mongo-username
+              key: mongo-user
         - name: USER_PWD
           valueFrom:
             secretKeyRef:
@@ -43,7 +43,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app.kubernetes.io/name: webapp
+    app: webapp
   ports:
     - protocol: TCP
       port: 3000
