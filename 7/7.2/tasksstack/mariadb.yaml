@@ -14,6 +14,9 @@ spec:
       labels:
         app: mariadb
     spec:
+      securityContext:
+        seccompProfile:
+          type: Unconfined
       containers:
       - name: mariadb
         image: mariadb:latest
@@ -28,10 +31,20 @@ spec:
         volumeMounts:
         - name: init-sql
           mountPath: /docker-entrypoint-initdb.d
+        - name: mariadb-storage
+          mountPath: /var/lib/mysql
+        - name: mariadb-config
+          mountPath: /etc/mysql/conf.d
       volumes:
       - name: init-sql
         configMap:
           name: mariadb-init-sql
+      - name: mariadb-storage
+        persistentVolumeClaim:
+          claimName: mariadb-storage
+      - name: mariadb-config
+        configMap:
+          name: mariadb-config
 ---
 apiVersion: v1
 kind: Service
@@ -45,3 +58,15 @@ spec:
       port: 3306
       targetPort: 3306
   type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mariadb-storage
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
