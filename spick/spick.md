@@ -1,8 +1,309 @@
 # Kubernetes & Cloud Computing - Prüfungsspick
 
+# Inhaltsverzeichnis
+
+1. [Command Reference: Minikube, kubectl & oc](#1-command-reference-minikube-kubectl--oc)
+   - [Minikube Commands (Lokales Kubernetes Cluster)](#-minikube-commands-lokales-kubernetes-cluster)
+   - [kubectl Commands (Kubernetes CLI)](#-kubectl-commands-kubernetes-cli)
+   - [oc Commands (OpenShift CLI)](#-oc-commands-openshift-cli)
+   - [Debugging-Workflow](#debugging-workflow)
+
+2. [YAML Files für Kubernetes Components](#2-yaml-files-für-kubernetes-components)
+   - [Grundaufbau einer Kubernetes YAML-Datei](#grundaufbau-einer-kubernetes-yaml-datei)
+   - [Metadata Specifications](#metadata-specifications)
+
+3. [Kubernetes Components](#3-kubernetes-components)
+   - [Pod](#pod)
+   - [Deployment](#deployment)
+   - [Service](#service)
+   - [ReplicaSet](#replicaset)
+   - [StatefulSet](#statefulset)
+   - [DaemonSet](#daemonset)
+   - [Namespace](#namespace)
+   - [Ingress](#ingress)
+   - [PersistentVolume (PV) & PersistentVolumeClaim (PVC)](#persistentvolume-pv--persistentvolumeclaim-pvc)
+
+4. [Cloud Computing - Grundlagen](#4-cloud-computing---grundlagen)
+   - [Wie ist der Begriff Cloud entstanden?](#wie-ist-der-begriff-cloud-entstanden)
+   - [NIST Definition der Cloud](#nist-definition-der-cloud)
+
+5. [Die 5 Merkmale einer Cloud](#5-die-5-merkmale-einer-cloud)
+
+6. [Cloud Dienstleistungen](#6-cloud-dienstleistungen)
+
+7. [Cloud Anbieter](#7-cloud-anbieter)
+
+8. [Cloud Deployment Modelle](#8-cloud-deployment-modelle)
+
+9. [Cloud Service Modelle](#9-cloud-service-modelle)
+
+10. [Monitoring vs. Logging](#10-monitoring-vs-logging)
+
+11. [Cloud - Vorteile & Nachteile](#11-cloud---vorteile--nachteile)
+
+12. [Shared Responsibility Model](#12-shared-responsibility-model)
+
+13. [Container-Technologie](#13-container-technologie)
+    - [Was ist Container-Technologie?](#was-ist-container-technologie)
+    - [Container vs. Virtuelle Maschinen](#container-vs-virtuelle-maschinen)
+    - [Können VMs immer durch Container ersetzt werden?](#können-vms-immer-durch-container-ersetzt-werden)
+
+14. [Produkte für VMs & Container](#14-produkte-für-vms--container)
+
+15. [Self-Managed vs. Fully Managed](#15-self-managed-vs-fully-managed)
+
+16. [Container-Orchestrierung](#16-container-orchestrierung)
+    - [Warum braucht man Container-Orchestrierung?](#warum-braucht-man-container-orchestrierung)
+    - [Wie funktioniert Container-Orchestrierung?](#wie-funktioniert-container-orchestrierung)
+    - [Container-Orchestrierung Technologien](#container-orchestrierung-technologien)
+
+17. [Horizontale Skalierung](#17-horizontale-skalierung)
+
+18. [Deployment Strategien](#18-deployment-strategien)
+
+19. [Fragen zu Block 7](#19-fragen-zu-block-7)
+
+## 1. Command Reference: Minikube, kubectl & oc
+
+### 🔷 Minikube Commands (Lokales Kubernetes Cluster)
+
+#### Cluster Management
+```bash
+# Minikube starten
+minikube start
+minikube start --driver=docker          # Mit Docker Driver
+
+# Minikube stoppen
+minikube stop
+
+# Minikube löschen
+minikube delete
+minikube delete --all                   # Alle Profile löschen
+
+# Cluster-Status anzeigen
+minikube status
+
+```
+
+#### Cluster-Informationen
+```bash
+# Kubernetes Dashboard öffnen
+minikube dashboard
+
+# Cluster IP anzeigen
+minikube ip
+
+# Minikube Logs
+minikube logs
+
+```
 ---
 
-## 1. YAML Files für Kubernetes Components
+### 🔷 kubectl Commands (Kubernetes CLI)
+
+#### Cluster-Informationen
+```bash
+# Cluster-Info anzeigen
+kubectl cluster-info
+kubectl cluster-info dump               # Detaillierte Cluster-Informationen
+
+# Nodes anzeigen
+kubectl get nodes
+kubectl get nodes -o wide               # Mit mehr Details
+kubectl describe node <node-name>
+
+# Konfiguration anzeigen
+kubectl config view
+kubectl config get-contexts             # Alle Contexts
+kubectl config current-context          # Aktueller Context
+kubectl config use-context <context>    # Context wechseln
+```
+
+#### Ressourcen anzeigen (GET)
+```bash
+# Pods
+kubectl get pods
+kubectl get pods -n <namespace>         # In bestimmtem Namespace
+kubectl get pods --all-namespaces       # Alle Namespaces (oder -A)
+kubectl get pods -o wide                # Mehr Details (Node, IP)
+kubectl get pods -o yaml                # YAML-Output
+kubectl get pods -o json                # JSON-Output
+kubectl get pods --watch                # Live-Updates (oder -w)
+kubectl get pods --show-labels          # Mit Labels
+kubectl get pods -l app=nginx           # Filter nach Label
+
+# Andere Ressourcen
+kubectl get deployments
+kubectl get services (oder svc)
+kubectl get replicasets (oder rs)
+kubectl get namespaces (oder ns)
+kubectl get configmaps (oder cm)
+kubectl get secrets
+kubectl get ingress (oder ing)
+kubectl get persistentvolumes (oder pv)
+kubectl get persistentvolumeclaims (oder pvc)
+kubectl get statefulsets (oder sts)
+kubectl get daemonsets (oder ds)
+
+# Alle Ressourcen in einem Namespace
+kubectl get all
+kubectl get all -n <namespace>
+```
+
+#### Detaillierte Informationen (DESCRIBE)
+```bash
+# Details zu Ressourcen
+kubectl describe pod <pod-name>
+kubectl describe deployment <deployment-name>
+kubectl describe service <service-name>
+kubectl describe node <node-name>
+kubectl describe pv <pv-name>
+
+```
+
+#### Logs & Debugging
+```bash
+# Logs anzeigen
+kubectl logs <pod-name>
+```
+
+#### Erstellen & Anwenden (CREATE/APPLY)
+```bash
+# YAML-Datei anwenden
+kubectl apply -f deployment.yaml
+kubectl apply -f ./config-folder/         # Ganzer Ordner
+kubectl apply -f https://raw.githubusercontent.com/.../file.yaml
+
+```
+
+#### Löschen (DELETE)
+```bash
+# Ressourcen löschen
+kubectl delete pod <pod-name>
+kubectl delete deployment <deployment-name>
+kubectl delete service <service-name>
+
+# Mit Datei
+kubectl delete -f deployment.yaml
+
+# Nach Label
+kubectl delete pods -l app=nginx
+
+# Alle Pods in Namespace
+kubectl delete pods --all
+kubectl delete all --all                 # VORSICHT: Löscht alles!
+
+# Namespace löschen (löscht alle Ressourcen darin)
+kubectl delete namespace <namespace-name>
+
+# Force delete (bei hängenden Pods)
+kubectl delete pod <pod-name> --grace-period=0 --force
+```
+
+---
+
+### 🔷 oc Commands (OpenShift CLI)
+
+**Hinweis:** `oc` basiert auf `kubectl` und hat alle kubectl-Befehle + OpenShift-spezifische Features.
+
+#### Login & Authentifizierung
+```bash
+# Login in OpenShift Cluster
+oc login <cluster-url>
+oc login https://api.openshift.example.com:6443
+oc login --token=<token> --server=<server-url>
+
+# Login mit Username/Password
+oc login -u <username> -p <password>
+
+# Logout
+oc logout
+
+# Aktuellen User anzeigen
+oc whoami
+oc whoami --show-token                  # Token anzeigen
+oc whoami --show-server                 # Server anzeigen
+oc whoami --show-console                # Web-Console URL
+```
+
+#### Projekte (OpenShift Namespaces)
+```bash
+# Projekte anzeigen
+oc projects
+oc get projects
+
+# Neues Projekt erstellen
+oc new-project <project-name>
+oc new-project dev-environment --description="Dev Env" --display-name="Development"
+
+# Projekt wechseln
+oc project <project-name>
+
+# Aktuelles Projekt anzeigen
+oc project
+
+# Projekt löschen
+oc delete project <project-name>
+```
+
+#### Routes (OpenShift Ingress)
+```bash
+# Routes anzeigen
+oc get routes
+oc get route <route-name>
+
+# Route löschen
+oc delete route <route-name>
+```
+
+#### Nützliche oc-spezifische Features
+```bash
+# Alle Ressourcen eines Projekts anzeigen
+oc get all
+```
+
+#### Conversion: kubectl ↔ oc
+```bash
+# Diese sind identisch:
+kubectl get pods        = oc get pods
+kubectl apply -f        = oc apply -f
+kubectl logs            = oc logs
+kubectl exec            = oc exec
+
+# OpenShift-spezifisch (kein kubectl-Äquivalent):
+oc new-app
+oc new-project
+oc expose
+oc start-build
+oc login
+```
+
+---
+
+#### Debugging-Workflow
+```bash
+# 1. Pod-Status prüfen
+kubectl get pods
+
+# 2. Details ansehen
+kubectl describe pod <pod-name>
+
+# 3. Logs prüfen
+kubectl logs <pod-name>
+
+# 4. Events prüfen
+kubectl get events --sort-by='.lastTimestamp'
+
+# 5. In Container gehen
+kubectl exec -it <pod-name> -- /bin/sh
+
+# 6. Netzwerk testen
+kubectl run -it --rm debug --image=busybox --restart=Never -- sh
+```
+
+---
+
+## 2. YAML Files für Kubernetes Components
 
 ### Grundaufbau einer Kubernetes YAML-Datei
 
@@ -54,7 +355,7 @@ data:
 
 ---
 
-## 2. Kubernetes Components
+## 3. Kubernetes Components
 
 ### Pod
 **Kleinste deploybare Einheit in Kubernetes**
@@ -325,7 +626,7 @@ spec:
 
 ---
 
-## 3. Cloud Computing - Grundlagen
+## 4. Cloud Computing - Grundlagen
 
 ### Wie ist der Begriff Cloud entstanden?
 **Darstellung des Internets und komplexer Netzwerke als eine Wolke**
@@ -335,7 +636,7 @@ Ein Modell, das den **bedarfsgerechten, netzwerkbasierten Zugriff** auf einen ge
 
 ---
 
-## 4. Die 5 Merkmale einer Cloud
+## 5. Die 5 Merkmale einer Cloud
 
 1. **On-Demand Self-Service**
    - Selbstständige Ressourcen-Bereitstellung ohne menschliche Interaktion
@@ -359,7 +660,7 @@ Ein Modell, das den **bedarfsgerechten, netzwerkbasierten Zugriff** auf einen ge
 
 ---
 
-## 5. Cloud Dienstleistungen
+## 6. Cloud Dienstleistungen
 
 - **Webhosting** - Hosting von Websites/Anwendungen
 - **Datenbankdienste** - Managed Databases (MySQL, PostgreSQL, NoSQL)
@@ -371,7 +672,7 @@ Ein Modell, das den **bedarfsgerechten, netzwerkbasierten Zugriff** auf einen ge
 
 ---
 
-## 6. Cloud Anbieter
+## 7. Cloud Anbieter
 
 - **AWS (Amazon Web Services)** - Marktführer
 - **Microsoft Azure** - Enterprise-Fokus
@@ -381,7 +682,7 @@ Ein Modell, das den **bedarfsgerechten, netzwerkbasierten Zugriff** auf einen ge
 
 ---
 
-## 7. Cloud Deployment Modelle
+## 8. Cloud Deployment Modelle
 
 | Modell | Beschreibung | Vorteile | Nachteile |
 |--------|-------------|----------|-----------|
@@ -392,7 +693,7 @@ Ein Modell, das den **bedarfsgerechten, netzwerkbasierten Zugriff** auf einen ge
 
 ---
 
-## 8. Cloud Service Modelle
+## 9. Cloud Service Modelle
 
 ```
 ┌─────────────────────────────────────────┐
@@ -417,7 +718,7 @@ Ein Modell, das den **bedarfsgerechten, netzwerkbasierten Zugriff** auf einen ge
 
 ---
 
-## 9. Monitoring vs. Logging
+## 10. Monitoring vs. Logging
 
 | Aspekt | Monitoring | Logging |
 |--------|-----------|---------|
@@ -433,7 +734,7 @@ Ein Modell, das den **bedarfsgerechten, netzwerkbasierten Zugriff** auf einen ge
 
 ---
 
-## 10. Cloud - Vorteile & Nachteile
+## 11. Cloud - Vorteile & Nachteile
 
 ### ✅ Vorteile
 
@@ -452,7 +753,7 @@ Ein Modell, das den **bedarfsgerechten, netzwerkbasierten Zugriff** auf einen ge
 
 ---
 
-## 11. Shared Responsibility Model
+## 12. Shared Responsibility Model
 
 **Verteilung der Verantwortung auf Cloud-Anbieter und Kunden**
 
@@ -480,7 +781,7 @@ Ein Modell, das den **bedarfsgerechten, netzwerkbasierten Zugriff** auf einen ge
 
 ---
 
-## 12. Container-Technologie
+## 13. Container-Technologie
 
 ### Was ist Container-Technologie?
 
@@ -523,7 +824,7 @@ Ein Modell, das den **bedarfsgerechten, netzwerkbasierten Zugriff** auf einen ge
 
 ---
 
-## 13. Produkte für VMs & Container
+## 14. Produkte für VMs & Container
 
 ### Container
 - **Docker** - Standard Container-Runtime
@@ -542,7 +843,7 @@ Ein Modell, das den **bedarfsgerechten, netzwerkbasierten Zugriff** auf einen ge
 
 ---
 
-## 14. Self-Managed vs. Fully Managed
+## 15. Self-Managed vs. Fully Managed
 
 ### Self-Managed
 
@@ -580,7 +881,7 @@ Ein Modell, das den **bedarfsgerechten, netzwerkbasierten Zugriff** auf einen ge
 
 ---
 
-## 15. Container-Orchestrierung
+## 16. Container-Orchestrierung
 
 ### Warum braucht man Container-Orchestrierung?
 
@@ -618,14 +919,14 @@ Ein Modell, das den **bedarfsgerechten, netzwerkbasierten Zugriff** auf einen ge
 
 ---
 
-## 16. Horizontale Skalierung
+## 17. Horizontale Skalierung
 
 **Definition:**
-Mehrere Instanzen der Anwendung statt grösserer Server
+Mehrere Instanzen der Anwendung statt größerer Server
 
 ### Eigenschaften
 
-- **Mehrere kleinere Instanzen** statt einem grossen Server
+- **Mehrere kleinere Instanzen** statt einem großen Server
 - **Bessere Lastverteilung** über viele Nodes
 - **Höhere Verfügbarkeit** (Ausfall einzelner Instanzen verkraftbar)
 - **Elastisch anpassbar** (schnell hoch-/runterskalieren)
@@ -639,14 +940,14 @@ Horizontal (Scale Out):          Vertikal (Scale Up):
 └───┘ └───┘ └───┘               │       │
 Mehr Server                      │       │
                                  └───────┘
-                                 Grösserer Server
+                                 Größerer Server
 ```
 
 **Vorteil Horizontal:** Besser für Cloud & Container!
 
 ---
 
-## 17. Deployment Strategien
+## 18. Deployment Strategien
 
 ### 1. Rolling Update (Schrittweises Ersetzen)
 ```
@@ -716,48 +1017,55 @@ V1: [V1]  ← Production Traffic
 
 ---
 
-## Wichtige kubectl Befehle (Bonus)
+## 19. Fragen zu Block 7
 
-```bash
-# Ressourcen anzeigen
-kubectl get pods
-kubectl get services
-kubectl get deployments
+*Was macht die Anwendung?*  
+- Die Anwendung besteht aus einem Backend, das Zitate bereitstellt, einer React-Frontend-Seite, die die Zitate anzeigt, und einer MariaDB-Datenbank, in der die Zitate gespeichert sind.
 
-# Detaillierte Informationen
-kubectl describe pod <pod-name>
+*Welche Programmiersprache wird für das Backend verwendet?*  
+- Python
 
-# Logs anzeigen
-kubectl logs <pod-name>
-
-# In Container ausführen
-kubectl exec -it <pod-name> -- /bin/bash
-
-# YAML anwenden
-kubectl apply -f deployment.yaml
-
-# Löschen
-kubectl delete pod <pod-name>
-
-# Skalieren
-kubectl scale deployment <name> --replicas=5
-
-# Rollout-Status
-kubectl rollout status deployment/<name>
-
-# Rollback
-kubectl rollout undo deployment/<name>
-```
+*Welche Programmiersprache wird für das Frontend verwendet?*  
+- React
 
 ---
 
-## Zusammenfassung: Wichtigste Punkte
+*Wohin leitet die Route ihre Anfragen weiter?*  
+- Die Route leitet ihre Anfragen über den Service an das entsprechende Pod weiter.
 
-✅ **YAML-Struktur:** apiVersion, kind, metadata, spec
-✅ **5 Cloud-Merkmale:** On-Demand, Netzwerk, Pooling, Elastizität, Metering
-✅ **Service-Modelle:** IaaS, PaaS, SaaS, FaaS
-✅ **Container > VM:** Schneller, leichter, portabler (aber schwächere Isolation)
-✅ **Orchestrierung:** Automatisierung, Skalierung, Self-Healing
-✅ **Deployment:** Rolling Update am häufigsten, Blue-Green für kritische Apps
+*Wie weiss ein Service, an welche Pods er Anfragen weiterleiten muss?*  
+- Der Service verwendet Labels, die den Pods zugewiesen sind, um zu bestimmen, welche Pods die Anfragen erhalten sollen. Dies geschieht über Key-Value-Paare wie zum Beispiel app: quotes.
 
 ---
+
+*Wer erstellt die Anfragen an das Backend? Das Frontend oder der Browser?*  
+- Die Anfragen an das Backend werden vom Browser erstellt.
+
+---
+
+*Zu welcher Ressource leitet die Route die Anfrage weiter?*  
+- Die Route leitet die Anfragen an den Service, der dann weiter an das passende Pod sendet.
+
+*Wie weiss ein Service, welche Pods er ansprechen muss?*  
+- Der Service verwendet Labels, die in den Pods definiert sind, um festzulegen, welche Pods die Anfragen erhalten. Diese Labels sind Key-Value-Paare wie z.B. app: quotes.
+
+---
+
+*Wer erstellt die Anfragen an das Backend? Das Frontend oder der Browser?*  
+- Die Anfragen an das Backend werden vom Browser erstellt.
+
+---
+
+*Wie weiss das Backend, mit welcher Datenbank es sich verbinden soll?*  
+- Das Backend verwendet eine Umgebungsvariable (DB_SERVICE_NAME), die den Namen des MariaDB-Dienstes enthält, um die Verbindung zur richtigen Datenbank herzustellen.
+
+---
+
+*Was macht eine HPA (Horizontal Pod Autoscaler)?*  
+- Eine HPA skaliert die Anzahl der Pods basierend auf der Auslastung der Ressourcen, z.B. der CPU-Auslastung.
+
+*Warum kann eine HPA nützlich sein?*  
+- Eine HPA ermöglicht es, die Anwendung automatisch zu skalieren, wenn die Auslastung zunimmt, und sorgt so für bessere Verfügbarkeit und Leistung.
+
+*Was könnte das Risiko beim Einsatz einer HPA sein?*  
+- Ein Risiko beim Einsatz einer HPA besteht darin, dass eine zu aggressive Skalierung die Infrastruktur überlasten oder zusätzliche Kosten verursachen kann.
